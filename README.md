@@ -1,16 +1,17 @@
 ---
-title: Rust Rocket
-description: A Rocket webserver
+title: castform-web
+description: A Rocket webserver. Fetches an image of castform depending on the weather of your current location.
 tags:
   - rust
   - rocket
+  - pokemon
 ---
 
-# Rust Rocket Example
+# Castform-web
 
-This example is a [Rocket](https://rocket.rs) web server
+Castform-web returns a picture of castform depending on the current weather at your location.
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/soL3yG)
+This is a [Rocket](https://rocket.rs) web server.
 
 ## ✨ Features
 
