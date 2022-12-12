@@ -11,9 +11,9 @@ fn rocket() -> _ {
     rocket::build().mount("/", routes![index, api::get_weather])
 }
 
-mod api {
+pub mod api {
     use dotenv::dotenv;
-    use rocket::serde::json::serde_json::{self, Value};
+    use rocket::serde::json::serde_json::Value;
     use std::env;
 
     #[get("/weather/<city>")]
@@ -26,20 +26,22 @@ mod api {
             api_key, city
         );
 
-        let weather = reqwest::get(&url).await.unwrap().text().await.unwrap();
-        let res = serde_json::from_str::<Value>(&weather).unwrap();
+        let http_response = reqwest::get(&url).await.unwrap();
 
-        res
+        let weather = http_response.json::<Value>().await.unwrap();
+
+        weather
     }
 }
-mod models {
+pub mod models {
     use serde::{Deserialize, Serialize};
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
     #[serde(rename_all = "camelCase")]
+    // #[response(status = 200, content_type = "json")]
     pub struct Weather {
-        pub location: Location,
-        pub current: Current,
+        pub location: String,
+        pub current: String,
     }
 
     #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
